@@ -1,0 +1,119 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://assets/sprites/sEnemy_strip7.png" type="Texture" id=1]
+[ext_resource path="res://enemy/enemy.gd" type="Script" id=2]
+[ext_resource path="res://assets/sprites/sEnemyDead.png" type="Texture" id=3]
+[ext_resource path="res://assets/sfx/hit.wav" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12.8248, 13.1511 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 40, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 120, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 200, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 240, 0, 40, 40 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "death",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 14.5104, 15.024 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 16.9451, 16.5223 )
+
+[sub_resource type="CircleShape2D" id=12]
+radius = 95.4276
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+light_mask = -2147483646
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+modulate = Color( 0.768627, 0.815686, 0.180392, 1 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+self_modulate = Color( 1, 1, 0.447059, 1 )
+position = Vector2( 0, 0.198425 )
+frames = SubResource( 9 )
+animation = "death"
+
+[node name="HitBox" type="Area2D" parent="."]
+visible = false
+
+[node name="hitbox" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource( 10 )
+
+[node name="HurtBox" type="Area2D" parent="."]
+visible = false
+
+[node name="hurtbox" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource( 11 )
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerDetection"]
+shape = SubResource( 12 )
+disabled = true
+
+[node name="SpeedTimer" type="Timer" parent="."]
+wait_time = 60.0
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -5.0
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_PlayerDetection_body_entered"]
+[connection signal="timeout" from="SpeedTimer" to="." method="_on_SpeedTimer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
