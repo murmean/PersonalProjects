@@ -1,0 +1,235 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://assets/sprites/sPlayerIdle_strip4.png" type="Texture" id=1]
+[ext_resource path="res://player/player.gd" type="Script" id=2]
+[ext_resource path="res://assets/sfx/ded.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/music/FirstSong.mp3" type="AudioStream" id=4]
+[ext_resource path="res://assets/music/SecondSong.mp3" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/pickup.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/sprites/shotgun.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/uzi.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/sGun.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/sPlayerRun_strip7.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 40, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 120, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 40, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 80, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 120, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 160, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 200, 0, 40, 40 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 240, 0, 40, 40 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"loop": true,
+"name": "run",
+"speed": 8.0
+} ]
+
+[sub_resource type="CircleShape2D" id=13]
+radius = 12.2375
+
+[sub_resource type="Animation" id=14]
+length = 3.5
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=15]
+length = 3.0
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2, 2.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 7, 8, 9, 10, 11, 12, 13 ]
+}
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+script = ExtResource( 2 )
+
+[node name="GunSprite" type="Sprite" parent="."]
+rotation = -4.46638e-06
+texture = ExtResource( 9 )
+offset = Vector2( 12.1834, -0.299723 )
+
+[node name="ShotgunPos" type="Position2D" parent="GunSprite"]
+position = Vector2( 23.2201, -0.869727 )
+rotation = 0.145018
+scale = Vector2( 1.59574, 1.81145 )
+
+[node name="BulletFireLoc" type="Position2D" parent="GunSprite"]
+position = Vector2( 23.1257, -0.726026 )
+scale = Vector2( 1.59189, 1.81483 )
+__meta__ = {
+"_gizmo_extents_": 0.0
+}
+
+[node name="ShotgunPos2" type="Position2D" parent="GunSprite"]
+position = Vector2( 23.2776, -0.901933 )
+rotation = -0.145018
+scale = Vector2( 1.59574, 1.81145 )
+
+[node name="PlayerSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 12 )
+animation = "idle"
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="."]
+position = Vector2( -1.19561, -0.177904 )
+shape = SubResource( 13 )
+
+[node name="Position" type="Node2D" parent="."]
+visible = false
+
+[node name="Pick_range" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D2" type="CollisionShape2D" parent="Pick_range"]
+position = Vector2( -1.19561, -0.177904 )
+shape = SubResource( 13 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Barposition" type="Position2D" parent="CanvasLayer"]
+position = Vector2( 923.905, 966.956 )
+
+[node name="GunPos" type="Position2D" parent="CanvasLayer"]
+visible = false
+position = Vector2( 1088, 928 )
+
+[node name="Shotgun_popup" type="Popup" parent="CanvasLayer/GunPos"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Shotgun_sprite" type="Sprite" parent="CanvasLayer/GunPos/Shotgun_popup"]
+position = Vector2( -0.840951, 2.10224 )
+scale = Vector2( 0.566412, 0.428453 )
+texture = ExtResource( 7 )
+
+[node name="Uzi_popup" type="Popup" parent="CanvasLayer/GunPos"]
+margin_left = -5.66321
+margin_top = -9.43872
+margin_right = 44.3368
+margin_bottom = 30.5613
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Uzi_sprite" type="Sprite" parent="CanvasLayer/GunPos/Uzi_popup"]
+position = Vector2( 5.29419, 10.125 )
+scale = Vector2( 0.298352, 0.334065 )
+texture = ExtResource( 8 )
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 3 )
+
+[node name="FirstSong" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 4 )
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 6 )
+
+[node name="SecondSong" type="AudioStreamPlayer2D" parent="."]
+visible = false
+stream = ExtResource( 5 )
+
+[node name="GunTimer" type="Timer" parent="."]
+
+[node name="BulletSpread" type="Timer" parent="."]
+
+[node name="ChangeScene" type="Timer" parent="."]
+
+[node name="MusicTimer" type="Timer" parent="."]
+wait_time = 140.0
+one_shot = true
+autostart = true
+
+[node name="FireRate" type="Timer" parent="."]
+wait_time = 0.001
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 5.0
+anims/idle = SubResource( 14 )
+anims/walk = SubResource( 15 )
+
+[connection signal="area_entered" from="Pick_range" to="." method="_on_Pick_range_area_entered"]
+[connection signal="timeout" from="GunTimer" to="." method="_on_GunTimer_timeout"]
+[connection signal="timeout" from="BulletSpread" to="." method="_on_BulletSpread_timeout"]
+[connection signal="timeout" from="ChangeScene" to="." method="_on_ChangeScene_timeout"]
+[connection signal="timeout" from="MusicTimer" to="." method="_on_MusicTimer_timeout"]
+[connection signal="timeout" from="FireRate" to="." method="_on_FireRate_timeout"]

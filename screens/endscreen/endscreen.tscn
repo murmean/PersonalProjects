@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://screens/endscreen/endscreen.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/customfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fonts/lato/Lato-Bold.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 82
+font_data = ExtResource( 3 )
+
+[node name="EndScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.68176
+margin_top = 6.27167
+margin_right = 1.68176
+margin_bottom = 6.27173
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -209.5
+margin_top = -243.716
+margin_right = 209.5
+margin_bottom = -144.716
+custom_fonts/font = SubResource( 1 )
+text = "Game Over"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -206.999
+margin_top = -43.6373
+margin_right = 22.0015
+margin_bottom = 16.3627
+custom_fonts/font = ExtResource( 2 )
+text = "Your time:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 77.2192
+margin_top = -37.204
+margin_right = 117.219
+margin_bottom = 22.796
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="RestartTimer" to="." method="_on_RestartTimer_timeout"]
